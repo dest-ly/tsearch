@@ -1,5 +1,10 @@
+import styles from '../styles/Header.module.css'
+
 export function Header() {
     return (
-        <h3>Product Name</h3>
+        <div className={styles.header}>
+            <h3>O Product Name</h3>
+            <h3>Circle</h3>
+        </div>
     )
 }

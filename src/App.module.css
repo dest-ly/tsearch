@@ -1,10 +1,13 @@
-.workspace {
+.body {
     display: grid;
     grid-template-columns: 210px minmax(0, 1fr);
 }
 
-.mainworkspace {
+.workspace {
     border-style: dotted;
     border-color: blue;
     height: auto;
+    
+    display: flex;
+    flex-direction: column;
 }

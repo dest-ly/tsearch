@@ -1,4 +1,4 @@
-import styles from './Sidebar.module.css';
+import styles from '../styles/Sidebar.module.css'
 
 export function Sidebar() {
     return (
