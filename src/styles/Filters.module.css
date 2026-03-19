@@ -2,3 +2,9 @@
     border-style: dotted;
     border-color: royalblue;
 }
+
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
