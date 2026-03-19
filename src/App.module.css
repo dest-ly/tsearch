@@ -1,0 +1,10 @@
+.workspace {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+}
+
+.mainworkspace {
+    border-style: dotted;
+    border-color: blue;
+    height: auto;
+}

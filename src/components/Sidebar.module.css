@@ -1,0 +1,9 @@
+.sidebar {
+    border-style: dotted;
+    border-color: red;
+
+    min-height: 60vh;
+
+    display: flex;
+    flex-direction: column;
+}
