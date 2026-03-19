@@ -1,13 +1,15 @@
 .body {
     display: grid;
     grid-template-columns: 210px minmax(0, 1fr);
+    background-color: #faf9f7;
 }
 
 .workspace {
     border-style: dotted;
     border-color: blue;
-    height: auto;
-    
+    /* Temporary */
+    height: calc(100dvh - 60px);
+
     display: flex;
     flex-direction: column;
 }

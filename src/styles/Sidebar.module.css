@@ -14,7 +14,10 @@
     /* border-style: solid; */
     /* border-color: black; */
     padding: 5px 10px;
-    border-radius: 5px;;
+    border-radius: 15px;;
     background-color: white;
     cursor: pointer;
+    font-size: large;
+    padding: 10px;
+    margin: 0 10px;
 }

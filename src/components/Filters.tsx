@@ -30,23 +30,28 @@ export function Filters() {
                 </div>
 
                 <div className={styles.parameter}>
-                    <label htmlFor="date">ATM ID</label>
-                    <input type="number" id="date" name="date" />
+                    <label htmlFor="atm">ATM ID</label>
+                    <select name="atm" id="atm">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
                 </div>
 
                 <div className={styles.parameter}>
-                    <label htmlFor="date">Customer PAN Number</label>
-                    <input type="search" id="date" name="date" />
+                    <label htmlFor="pan">Customer PAN Number</label>
+                    <input type="search" id="pan" name="pan" />
                 </div>
 
                 <div className={styles.parameter}>
-                    <label htmlFor="date">EMV chip AID</label>
-                    <input type="search" id="date" name="date" />
+                    <label htmlFor="emv">EMV chip AID</label>
+                    <input type="search" id="emv" name="emv" />
                 </div>
 
                 <div className={styles.parameter}>
-                    <label htmlFor="date">Transaction Serial Number</label>
-                    <input type="search" id="date" name="date" />
+                    <label htmlFor="tsn">Transaction Serial Number</label>
+                    <input type="search" id="tsn" name="tsn" />
                 </div>
             </div>
         </div>

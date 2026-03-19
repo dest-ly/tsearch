@@ -8,11 +8,11 @@ export function Transactions() {
             <table style={{width: "100%"}}>
                 {/* Header */}
                 <tr>
-                    <th>Date</th>
-                    <th>ATM ID</th>
-                    <th>Customer PAN</th>
-                    <th>Description</th>
-                    <th>Code</th>
+                    <th style={{width: '10%' }}>Date</th>
+                    <th style={{width: '10%' }}>ATM ID</th>
+                    <th style={{width: '10%' }}>Customer PAN</th>
+                    <th style={{width: '40%' }}>Description</th>
+                    <th style={{width: '30%' }}>Code</th>
                 </tr>
                 {/* Contents, dynamically generated */}
                 <tr>
