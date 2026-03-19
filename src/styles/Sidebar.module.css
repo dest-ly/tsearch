@@ -3,7 +3,18 @@
     border-color: red;
 
     min-height: 60vh;
+    padding-top: 5%;
 
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
+
+.button {
+    /* border-style: solid; */
+    /* border-color: black; */
+    padding: 5px 10px;
+    border-radius: 5px;;
+    background-color: white;
+    cursor: pointer;
 }

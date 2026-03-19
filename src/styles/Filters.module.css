@@ -3,8 +3,47 @@
     border-color: royalblue;
 }
 
-.filters {
+.header {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-bottom: 20px;
+}
+
+.filters {
+    border-style: dotted;
+    border-color: brown;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    margin: 0px 20px;
+}
+
+.parameter {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.buttongroup {
+    border-style: dotted;
+    border-color: black;
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 5px;
+}
+
+.button {
+    border-style: solid;
+    border-color: black;
+    padding: 5px 10px;
+    border-radius: 15px;;
+    background-color: white;
+    cursor: pointer;
+    min-width: 100px;
 }

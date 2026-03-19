@@ -14,7 +14,7 @@ export function Transactions() {
                     <th>Description</th>
                     <th>Code</th>
                 </tr>
-                {/* Contents */}
+                {/* Contents, dynamically generated */}
                 <tr>
                     <td>11/05/2020</td>
                     <td>TT1121</td>
@@ -29,6 +29,7 @@ export function Transactions() {
                     </td>
                     <td>11/05/20 21:35:43</td>
                 </tr>
+                
             </table>
         </div>
     )
