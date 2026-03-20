@@ -99,11 +99,52 @@ function groupTransactionsByPan(transactions: TransactionWithLogs[]): GroupedTra
 
 export function Transactions({ filters }: TransactionsProps) {
     const lastRequestKeyRef = useRef('')
+    const [searchQuery, setSearchQuery] = useState('')
     const [transactions, setTransactions] = useState<TransactionWithLogs[]>([])
     const [isLoadingTransactions, setIsLoadingTransactions] = useState(false)
     const [transactionsError, setTransactionsError] = useState<string | null>(null)
     const hasRequiredFilters = hasRequiredTransactionFilters(filters)
-    const groupedTransactions = groupTransactionsByPan(transactions)
+
+    const filteredTransactions = transactions.filter((transaction) => {
+        const panMatches =
+            filters.pan === '' ||
+            (transaction.pan ?? '').includes(filters.pan) ||
+            (transaction.pan ?? '').replace(/\D/g, '').includes(filters.pan)
+
+        const aidMatches =
+            filters.aid === '' ||
+            (transaction.app?.txt ?? '').includes(filters.aid)
+
+        const serialMatches =
+            filters.serialNumber === '' ||
+            transaction.logEntries.some((entry) => entry.text.includes(filters.serialNumber))
+
+        return panMatches && aidMatches && serialMatches
+    })
+
+    const groupedTransactions = groupTransactionsByPan(filteredTransactions)
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase()
+    const visibleTransactions = groupedTransactions.filter((transaction) => {
+        if (normalizedSearchQuery === '') {
+            return true
+        }
+
+        const searchableText = [
+            transaction.date,
+            transaction.atmId,
+            transaction.pan,
+            transaction.code,
+            ...transaction.descriptions.flatMap((description) => [
+                description.text,
+                description.timestamp,
+                description.code,
+            ]),
+        ]
+            .join(' ')
+            .toLowerCase()
+
+        return searchableText.includes(normalizedSearchQuery)
+    })
 
     useEffect(() => {
         if (!hasRequiredFilters) {
@@ -162,7 +203,13 @@ export function Transactions({ filters }: TransactionsProps) {
         <div className={styles.transactions}>
             <div className={styles.topbar}>
                 <div />
-                <input className={styles.searchInput} type="search" placeholder="Search in results" />
+                <input
+                    className={styles.searchInput}
+                    type="search"
+                    placeholder="Search in results"
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                />
             </div>
             {!hasRequiredFilters ? <p>Set date range and ATM ID to load transactions.</p> : null}
             {hasRequiredFilters && transactionsError !== null ? <p>{transactionsError}</p> : null}
@@ -179,7 +226,7 @@ export function Transactions({ filters }: TransactionsProps) {
                         </tr>
                     </thead>
                     <tbody>
-                        {groupedTransactions.map((transaction) => (
+                        {visibleTransactions.map((transaction) => (
                             <tr key={`${transaction.pan}-${transaction.code}`} style={{ textAlign: 'left' }}>
                                 <td>{transaction.date}</td>
                                 <td>{transaction.atmId}</td>
@@ -207,8 +254,10 @@ export function Transactions({ filters }: TransactionsProps) {
                     </tbody>
                 </table>
             ) : null}
-            {hasRequiredFilters && !isLoadingTransactions && transactionsError === null && groupedTransactions.length === 0 ? (
-                <p>No transactions found.</p>
+            {hasRequiredFilters && !isLoadingTransactions && transactionsError === null && visibleTransactions.length === 0 ? (
+                <div style={{ paddingTop: '1rem' }}>
+                    <p>No transactions found.</p>
+                </div>
             ) : null}
         </div>
     )
