@@ -2,7 +2,9 @@ import { useState } from 'react'
 import styles from '../styles/Filters.module.css'
 import type { AtmListItem } from '../util/atmList'
 import type { AidListItem } from '../util/aidList'
-import type { TransactionFilters } from '../util/transactionFilters'
+import {
+    type TransactionFilters,
+} from '../util/transactionFilters'
 import { UnavailableDialog } from './UnavailableDialog.tsx'
 
 type FiltersProps = {
@@ -91,20 +93,9 @@ export function Filters({
                                 ? 'Loading ATM IDs...'
                                 : atmOptionsError ?? 'Select an ATM ID'}
                         </option>
-                        {/* JSON Schema of the response payload */}
-                        {/*
-                        [
-                            {
-                                "country": "string",
-                                "id": 0,
-                                "lt": 0,
-                                "name": "string",
-                                "ts": 0
-                            }
-                        ]        
-                        */}
+                        {/* Display the name but send the ID*/}
                         {atmOptions.map((atm) => (
-                            <option key={atm.name} value={atm.name}>
+                            <option key={atm.id} value={String(atm.id)}>
                                 {atm.name}
                             </option>
                         ))}

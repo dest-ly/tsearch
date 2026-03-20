@@ -12,6 +12,7 @@
 
 ## Considerations
 - Since the stack is using no external libraries, date range has been separated into two inputs (from and to).
+- Using all ATMs as an option will perform 138 (the atm list length) API calls, which is not preferred. The software only kicks in if three conditions are met (date range start, date range end, atm ID)
 
 ## Challenges
 - getAtmPastFutureTransactions has unclear documentation, especially datetime. I had to guess the format it accepted for it to work. Correct format: 2 digit month, 2 digit day, 4 digit year twice
