@@ -1,15 +1,40 @@
+.page {
+    min-height: 100vh;
+    padding: 12px;
+    background: #2d2a27;
+}
+
 .body {
+    gap: 20px;
     display: grid;
     grid-template-columns: 210px minmax(0, 1fr);
-    background-color: #faf9f7;
+    padding: 16px;
+    min-height: calc(100vh - 96px);
+    background: #f2ede6;
 }
 
 .workspace {
-    border-style: dotted;
-    border-color: blue;
-    /* Temporary */
-    height: calc(100dvh - 60px);
+    /* border-style: dotted;
+    border-color: blue; */
+    min-height: 0;
+    padding: 18px 20px 20px;
 
     display: flex;
     flex-direction: column;
+    gap: 18px;
+}
+
+@media (max-width: 960px) {
+    .page {
+        padding: 8px;
+    }
+
+    .body {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .workspace {
+        padding: 16px;
+    }
 }

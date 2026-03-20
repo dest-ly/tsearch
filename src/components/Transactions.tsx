@@ -160,7 +160,10 @@ export function Transactions({ filters }: TransactionsProps) {
 
     return (
         <div className={styles.transactions}>
-            <h3>Results</h3>
+            <div className={styles.topbar}>
+                <div />
+                <input className={styles.searchInput} type="search" placeholder="Search in results" />
+            </div>
             {!hasRequiredFilters ? <p>Set date range and ATM ID to load transactions.</p> : null}
             {hasRequiredFilters && transactionsError !== null ? <p>{transactionsError}</p> : null}
             {hasRequiredFilters && isLoadingTransactions ? <p>Loading transactions...</p> : null}

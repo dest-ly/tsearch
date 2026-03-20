@@ -1,3 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color: #2f2a24;
+  font-family: 'Google Sans', sans-serif;
+}
+
 html,
 body,
 #root {
@@ -5,11 +14,18 @@ body,
   width: 100%;
   min-height: 100%;
 
-  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  font-family: 'Google Sans Code', sans-serif;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
-  background: #fff;
+  background: #2d2a27;
+  color: #2f2a24;
+}
+
+button,
+input,
+select {
+  font: inherit;
 }

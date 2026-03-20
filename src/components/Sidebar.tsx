@@ -8,7 +8,7 @@ export function Sidebar() {
 
     return (
         <div className={styles.sidebar}>
-            <button type="button" className={styles.button}>
+            <button type="button" className={`${styles.button} ${styles.buttonActive}`}>
                 Transactions
             </button>
             <button onClick={() => setIsOpen(true)} type="button" className={styles.button}>

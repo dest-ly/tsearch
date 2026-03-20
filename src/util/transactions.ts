@@ -62,7 +62,8 @@ const ignoredTransactionLogCodes = new Set([
     '3951',
     '3952',
     '3953',
-    '3959'
+    '3959',
+    '3215'
 ])
 
 function shouldIncludeTransactionLogEntry(entry: TransactionLogEntry): boolean {
