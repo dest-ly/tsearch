@@ -11,11 +11,12 @@
 }
 
 .button {
-    /* border-style: solid; */
-    /* border-color: black; */
+    border: none;
+    background: transparent;
+
     padding: 5px 10px;
-    border-radius: 15px;;
-    background-color: white;
+    border-radius: 15px;
+    
     cursor: pointer;
     font-size: large;
     padding: 10px;

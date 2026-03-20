@@ -1,6 +1,13 @@
 import styles from '../styles/Filters.module.css'
+import type { AtmListItem } from '../util/atmList'
 
-export function Filters() {
+type FiltersProps = {
+    atmOptions: AtmListItem[]
+    isLoadingAtmOptions: boolean
+    atmOptionsError: string | null
+}
+
+export function Filters({ atmOptions, isLoadingAtmOptions, atmOptionsError }: FiltersProps) {
     return (
         <div className={styles.transactions}>
             <div className={styles.header}>
@@ -29,13 +36,32 @@ export function Filters() {
                     <input type="date" id="date" name="date" />
                 </div>
 
+                {/* ATM ID dropdown, dynamically generated */}
                 <div className={styles.parameter}>
                     <label htmlFor="atm">ATM ID</label>
-                    <select name="atm" id="atm">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
+                    <select name="atm" id="atm" disabled={isLoadingAtmOptions || atmOptionsError !== null}>
+                        <option value="">
+                            {isLoadingAtmOptions
+                                ? 'Loading ATM IDs...'
+                                : atmOptionsError ?? 'Select an ATM ID'}
+                        </option>
+                        {/* JSON Schema of the response payload */}
+                        {/*
+                        [
+                            {
+                                "country": "string",
+                                "id": 0,
+                                "lt": 0,
+                                "name": "string",
+                                "ts": 0
+                            }
+                        ]        
+                        */}
+                        {atmOptions.map((atm) => (
+                            <option key={atm.name} value={atm.name}>
+                                {atm.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
 

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 // styles
 import styles from './App.module.css'
 
@@ -6,8 +8,32 @@ import { Header } from './components/Header'
 import { Sidebar } from './components/Sidebar'
 import { Transactions } from './components/Transactions'
 import { Filters } from './components/Filters'
+import { fetchAtmList, type AtmListItem } from './util/atmList'
 
 function App() {
+  const [atmOptions, setAtmOptions] = useState<AtmListItem[]>([])
+  const [isLoadingAtmOptions, setIsLoadingAtmOptions] = useState(true)
+  const [atmOptionsError, setAtmOptionsError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const loadAtmOptions = async () => {
+      setIsLoadingAtmOptions(true)
+      setAtmOptionsError(null)
+
+      try {
+        const data = await fetchAtmList()
+        setAtmOptions(data)
+      } catch {
+        setAtmOptions([])
+        setAtmOptionsError('Unable to load ATM IDs')
+      }
+
+      setIsLoadingAtmOptions(false)
+    }
+
+    void loadAtmOptions()
+  }, [])
+
   return (
     
     /* Page Wrapper */
@@ -20,7 +46,11 @@ function App() {
 
         {/* Main Workspace */}
         <div className={styles.workspace}>
-          <Filters />
+          <Filters
+            atmOptions={atmOptions}
+            isLoadingAtmOptions={isLoadingAtmOptions}
+            atmOptionsError={atmOptionsError}
+          />
           <Transactions />
         </div>
       </div>
