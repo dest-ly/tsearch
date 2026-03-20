@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import styles from '../styles/Filters.module.css'
 import type { AtmListItem } from '../util/atmList'
+import { UnavailableDialog } from './UnavailableDialog.tsx'
 
 type FiltersProps = {
     atmOptions: AtmListItem[]
@@ -8,6 +10,8 @@ type FiltersProps = {
 }
 
 export function Filters({ atmOptions, isLoadingAtmOptions, atmOptionsError }: FiltersProps) {
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+
     return (
         <div className={styles.transactions}>
             <div className={styles.header}>
@@ -16,10 +20,10 @@ export function Filters({ atmOptions, isLoadingAtmOptions, atmOptionsError }: Fi
                 </div>
 
                 <div className={styles.buttongroup}>   
-                    <button type="button" className={styles.button}>
+                    <button type="button" className={styles.button} onClick={() => setIsDialogOpen(true)}>
                         Print
                     </button>
-                    <button type="button" className={styles.button}>
+                    <button type="button" className={styles.button} onClick={() => setIsDialogOpen(true)}>
                         Export
                     </button>
                 </div>
@@ -80,6 +84,8 @@ export function Filters({ atmOptions, isLoadingAtmOptions, atmOptionsError }: Fi
                     <input type="search" id="tsn" name="tsn" />
                 </div>
             </div>
+
+            <UnavailableDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} />
         </div>
     )
 }
