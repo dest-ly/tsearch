@@ -3,11 +3,10 @@ import styles from '../styles/Transactions.module.css'
 export function Transactions() {
     return (
         <div className={styles.transactions}>
-            <h3>Transactions</h3>
-
+            <h3>Results</h3>
             <table style={{width: "100%"}}>
                 {/* Header */}
-                <tr>
+                <tr style={{textAlign: 'left'}}>
                     <th style={{width: '10%' }}>Date</th>
                     <th style={{width: '10%' }}>ATM ID</th>
                     <th style={{width: '10%' }}>Customer PAN</th>
@@ -15,7 +14,7 @@ export function Transactions() {
                     <th style={{width: '30%' }}>Code</th>
                 </tr>
                 {/* Contents, dynamically generated */}
-                <tr>
+                <tr style={{textAlign: 'left'}}>
                     <td>11/05/2020</td>
                     <td>TT1121</td>
                     <td>430395XXXXXX5987</td>

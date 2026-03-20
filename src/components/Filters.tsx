@@ -5,7 +5,7 @@ export function Filters() {
         <div className={styles.transactions}>
             <div className={styles.header}>
                 <div>   
-                    <h3>Upper Details</h3>
+                    <h3>All Transactions</h3>
                 </div>
 
                 <div className={styles.buttongroup}>   
