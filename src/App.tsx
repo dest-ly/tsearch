@@ -9,11 +9,15 @@ import { Sidebar } from './components/Sidebar'
 import { Transactions } from './components/Transactions'
 import { Filters } from './components/Filters'
 import { fetchAtmList, type AtmListItem } from './util/atmList'
+import { fetchAidList, type AidListItem } from './util/aidList'
 
 function App() {
   const [atmOptions, setAtmOptions] = useState<AtmListItem[]>([])
   const [isLoadingAtmOptions, setIsLoadingAtmOptions] = useState(true)
   const [atmOptionsError, setAtmOptionsError] = useState<string | null>(null)
+  const [aidOptions, setAidOptions] = useState<AidListItem[]>([])
+  const [isLoadingAidOptions, setIsLoadingAidOptions] = useState(true)
+  const [aidOptionsError, setAidOptionsError] = useState<string | null>(null)
 
   useEffect(() => {
     const loadAtmOptions = async () => {
@@ -34,6 +38,25 @@ function App() {
     void loadAtmOptions()
   }, [])
 
+  useEffect(() => {
+    const loadAidOptions = async () => {
+      setIsLoadingAidOptions(true)
+      setAidOptionsError(null)
+
+      try {
+        const data = await fetchAidList()
+        setAidOptions(data)
+      } catch {
+        setAidOptions([])
+        setAidOptionsError('Unable to load AIDs')
+      }
+
+      setIsLoadingAidOptions(false)
+    }
+
+    void loadAidOptions()
+  }, [])
+
   return (
     
     /* Page Wrapper */
@@ -50,6 +73,9 @@ function App() {
             atmOptions={atmOptions}
             isLoadingAtmOptions={isLoadingAtmOptions}
             atmOptionsError={atmOptionsError}
+            aidOptions={aidOptions}
+            isLoadingAidOptions={isLoadingAidOptions}
+            aidOptionsError={aidOptionsError}
           />
           <Transactions />
         </div>

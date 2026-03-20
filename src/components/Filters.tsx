@@ -1,15 +1,26 @@
 import { useState } from 'react'
 import styles from '../styles/Filters.module.css'
 import type { AtmListItem } from '../util/atmList'
+import type { AidListItem } from '../util/aidList'
 import { UnavailableDialog } from './UnavailableDialog.tsx'
 
 type FiltersProps = {
     atmOptions: AtmListItem[]
     isLoadingAtmOptions: boolean
     atmOptionsError: string | null
+    aidOptions: AidListItem[]
+    isLoadingAidOptions: boolean
+    aidOptionsError: string | null
 }
 
-export function Filters({ atmOptions, isLoadingAtmOptions, atmOptionsError }: FiltersProps) {
+export function Filters({
+    atmOptions,
+    isLoadingAtmOptions,
+    atmOptionsError,
+    aidOptions,
+    isLoadingAidOptions,
+    aidOptionsError,
+}: FiltersProps) {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
 
     return (
@@ -74,9 +85,21 @@ export function Filters({ atmOptions, isLoadingAtmOptions, atmOptionsError }: Fi
                     <input type="search" id="pan" name="pan" />
                 </div>
 
+                {/* EMV AID dropdown, dynamically generated */}
                 <div className={styles.parameter}>
                     <label htmlFor="emv">EMV chip AID</label>
-                    <input type="search" id="emv" name="emv" />
+                    <select name="emv" id="emv" disabled={isLoadingAidOptions || aidOptionsError !== null}>
+                        <option value="">
+                            {isLoadingAidOptions
+                                ? 'Loading AIDs...'
+                                : aidOptionsError ?? 'Select an AID'}
+                        </option>
+                        {aidOptions.map((aid) => (
+                            <option key={aid.id} value={aid.aid}>
+                                {aid.aid}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className={styles.parameter}>
