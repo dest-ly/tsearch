@@ -2,9 +2,12 @@ import { useState } from 'react'
 import styles from '../styles/Filters.module.css'
 import type { AtmListItem } from '../util/atmList'
 import type { AidListItem } from '../util/aidList'
+import type { TransactionFilters } from '../util/transactionFilters'
 import { UnavailableDialog } from './UnavailableDialog.tsx'
 
 type FiltersProps = {
+    filters: TransactionFilters
+    onFilterChange: (name: keyof TransactionFilters, value: string) => void
     atmOptions: AtmListItem[]
     isLoadingAtmOptions: boolean
     atmOptionsError: string | null
@@ -14,6 +17,8 @@ type FiltersProps = {
 }
 
 export function Filters({
+    filters,
+    onFilterChange,
     atmOptions,
     isLoadingAtmOptions,
     atmOptionsError,
@@ -22,6 +27,14 @@ export function Filters({
     aidOptionsError,
 }: FiltersProps) {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
+
+    const handlePanChange = (value: string) => {
+        onFilterChange('pan', value.replace(/\D/g, ''))
+    }
+
+    const handleSerialNumberChange = (value: string) => {
+        onFilterChange('serialNumber', value.replace(/\D/g, '').slice(0, 4))
+    }
 
     return (
         <div className={styles.transactions}>
@@ -42,19 +55,37 @@ export function Filters({
             </div>
             <div className={styles.filters}>
                 <div className={styles.parameter}>
-                    <label htmlFor="date">Date From</label>
-                    <input type="date" id="date" name="date" />
+                    <label htmlFor="dateFrom">Date From</label>
+                    <input
+                        type="date"
+                        id="dateFrom"
+                        name="dateFrom"
+                        value={filters.dateFrom}
+                        onChange={(event) => onFilterChange('dateFrom', event.target.value)}
+                    />
                 </div>
                 
                 <div className={styles.parameter}>
-                    <label htmlFor="date">Date To</label>
-                    <input type="date" id="date" name="date" />
+                    <label htmlFor="dateTo">Date To</label>
+                    <input
+                        type="date"
+                        id="dateTo"
+                        name="dateTo"
+                        value={filters.dateTo}
+                        onChange={(event) => onFilterChange('dateTo', event.target.value)}
+                    />
                 </div>
 
                 {/* ATM ID dropdown, dynamically generated */}
                 <div className={styles.parameter}>
-                    <label htmlFor="atm">ATM ID</label>
-                    <select name="atm" id="atm" disabled={isLoadingAtmOptions || atmOptionsError !== null}>
+                    <label htmlFor="atmId">ATM ID</label>
+                    <select
+                        name="atmId"
+                        id="atmId"
+                        value={filters.atmId}
+                        onChange={(event) => onFilterChange('atmId', event.target.value)}
+                        disabled={isLoadingAtmOptions || atmOptionsError !== null}
+                    >
                         <option value="">
                             {isLoadingAtmOptions
                                 ? 'Loading ATM IDs...'
@@ -82,13 +113,26 @@ export function Filters({
 
                 <div className={styles.parameter}>
                     <label htmlFor="pan">Customer PAN Number</label>
-                    <input type="search" id="pan" name="pan" />
+                    <input
+                        type="text"
+                        id="pan"
+                        name="pan"
+                        inputMode="numeric"
+                        value={filters.pan}
+                        onChange={(event) => handlePanChange(event.target.value)}
+                    />
                 </div>
 
                 {/* EMV AID dropdown, dynamically generated */}
                 <div className={styles.parameter}>
-                    <label htmlFor="emv">EMV chip AID</label>
-                    <select name="emv" id="emv" disabled={isLoadingAidOptions || aidOptionsError !== null}>
+                    <label htmlFor="aid">EMV chip AID</label>
+                    <select
+                        name="aid"
+                        id="aid"
+                        value={filters.aid}
+                        onChange={(event) => onFilterChange('aid', event.target.value)}
+                        disabled={isLoadingAidOptions || aidOptionsError !== null}
+                    >
                         <option value="">
                             {isLoadingAidOptions
                                 ? 'Loading AIDs...'
@@ -103,8 +147,16 @@ export function Filters({
                 </div>
 
                 <div className={styles.parameter}>
-                    <label htmlFor="tsn">Transaction Serial Number</label>
-                    <input type="search" id="tsn" name="tsn" />
+                    <label htmlFor="serialNumber">Transaction Serial Number</label>
+                    <input
+                        type="text"
+                        id="serialNumber"
+                        name="serialNumber"
+                        inputMode="numeric"
+                        maxLength={4}
+                        value={filters.serialNumber}
+                        onChange={(event) => handleSerialNumberChange(event.target.value)}
+                    />
                 </div>
             </div>
 

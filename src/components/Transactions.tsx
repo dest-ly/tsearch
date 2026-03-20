@@ -1,6 +1,13 @@
 import styles from '../styles/Transactions.module.css'
+import type { TransactionFilters } from '../util/transactionFilters'
 
-export function Transactions() {
+type TransactionsProps = {
+    filters: TransactionFilters
+}
+
+export function Transactions({ filters }: TransactionsProps) {
+    void filters
+
     return (
         <div className={styles.transactions}>
             <h3>Results</h3>

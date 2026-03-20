@@ -10,6 +10,10 @@ import { Transactions } from './components/Transactions'
 import { Filters } from './components/Filters'
 import { fetchAtmList, type AtmListItem } from './util/atmList'
 import { fetchAidList, type AidListItem } from './util/aidList'
+import {
+  defaultTransactionFilters,
+  type TransactionFilters,
+} from './util/transactionFilters'
 
 function App() {
   const [atmOptions, setAtmOptions] = useState<AtmListItem[]>([])
@@ -18,6 +22,7 @@ function App() {
   const [aidOptions, setAidOptions] = useState<AidListItem[]>([])
   const [isLoadingAidOptions, setIsLoadingAidOptions] = useState(true)
   const [aidOptionsError, setAidOptionsError] = useState<string | null>(null)
+  const [filters, setFilters] = useState<TransactionFilters>(defaultTransactionFilters)
 
   useEffect(() => {
     const loadAtmOptions = async () => {
@@ -57,6 +62,13 @@ function App() {
     void loadAidOptions()
   }, [])
 
+  const handleFilterChange = (name: keyof TransactionFilters, value: string) => {
+    setFilters((currentFilters) => ({
+      ...currentFilters,
+      [name]: value,
+    }))
+  }
+
   return (
     
     /* Page Wrapper */
@@ -70,6 +82,8 @@ function App() {
         {/* Main Workspace */}
         <div className={styles.workspace}>
           <Filters
+            filters={filters}
+            onFilterChange={handleFilterChange}
             atmOptions={atmOptions}
             isLoadingAtmOptions={isLoadingAtmOptions}
             atmOptionsError={atmOptionsError}
@@ -77,7 +91,7 @@ function App() {
             isLoadingAidOptions={isLoadingAidOptions}
             aidOptionsError={aidOptionsError}
           />
-          <Transactions />
+          <Transactions filters={filters} />
         </div>
       </div>
     </div>
