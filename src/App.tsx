@@ -8,6 +8,8 @@ import { Header } from './components/Header'
 import { Sidebar } from './components/Sidebar'
 import { Transactions } from './components/Transactions'
 import { Filters } from './components/Filters'
+
+// utils
 import { fetchAtmList, type AtmListItem } from './util/atmList'
 import { fetchAidList, type AidListItem } from './util/aidList'
 import {
